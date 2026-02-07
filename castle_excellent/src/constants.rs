@@ -1,0 +1,12 @@
+pub const TILE_SIZE: f32 = 8.0;
+pub const ROOM_COLS: usize = 30;
+pub const ROOM_ROWS: usize = 20;
+pub const ROOM_WIDTH: f32 = 240.0;
+pub const ROOM_HEIGHT: f32 = 160.0;
+pub const SCALE: f32 = 4.0;
+pub const GRAVITY: f32 = 400.0;
+pub const PLAYER_SPEED: f32 = 80.0;
+pub const JUMP_VELOCITY: f32 = -180.0;
+pub const GRID_COLS: usize = 10;
+pub const GRID_ROWS: usize = 6;
+pub const CLIMB_SPEED: f32 = 60.0;
