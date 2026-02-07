@@ -1,0 +1,4526 @@
+{
+  "metadata": {
+    "game": "Castle Excellent (The Castle II)",
+    "platform": "MSX1",
+    "publisher": "ASCII Corporation, 1986",
+    "rom_file": "rom.MX1",
+    "total_rooms": 60,
+    "total_object_instances": 454,
+    "unique_codes": 36,
+    "encoding_notes": {
+      "raw_code": "code = (byte1 & 0xE0) | (byte0 >> 4), from 2-byte ROM object record",
+      "entity_type": "(code & 0x0F) + 0x20 if bit6 set, else (code & 0x0F) + 0x30",
+      "bit5": "Initial direction: 0=right, 1=left",
+      "bit7": "Persistence/state bitmap flag",
+      "dispatch_routine": "L5F1A at ROM $5F1A"
+    },
+    "category_totals": {
+      "item": 238,
+      "enemy": 123,
+      "interactive": 93
+    }
+  },
+  "entity_type_reference": {
+    "items_0x20_to_0x2F": {
+      "table": "E3D6 (4 bytes per entry, max 16)",
+      "types": {
+        "0x20": "Crown (goal item)",
+        "0x21": "Princess (rescue target)",
+        "0x22": "Power-up",
+        "0x23": "Potion (extra life)",
+        "0x24": "Oxygen tank",
+        "0x25": "Castle Map",
+        "0x26": "Key/door counter",
+        "0x27": "Cross (2048 pts)",
+        "0x28": "Ring (1024 pts)",
+        "0x29": "Money bag (512 pts)",
+        "0x2A": "Red key (1024 pts)",
+        "0x2B": "Orange key (512 pts)",
+        "0x2C": "Yellow key (256 pts)",
+        "0x2D": "Green key (80 pts)",
+        "0x2E": "Blue key (32 pts)",
+        "0x2F": "Purple key (16 pts)"
+      }
+    },
+    "enemies_0x30_to_0x35": {
+      "table": "E386 (5 bytes per entry, max 16)",
+      "types": {
+        "0x30": "Knight (ranged, fires arrows)",
+        "0x31": "Fighter (melee, jumps with player)",
+        "0x32": "Bishop (immune to dagger)",
+        "0x33": "Devil Flower (stationary, grows from bud)",
+        "0x34": "Flame (roaming, immune to dagger)",
+        "0x35": "Witch (summons enemies)"
+      }
+    },
+    "interactive_0x36_plus": {
+      "table": "E416 (5 bytes per entry, max 8)",
+      "dispatch": "L43BF",
+      "types": {
+        "0x36": "Door (simple animation)",
+        "0x37": "Floating platform (horizontal, L4901)",
+        "0x38": "Elevator (vertical, L48AD)",
+        "0x39": "Barrier (periodic activation, L4882)",
+        "0x3A": "Moving hazard (L487A)",
+        "0x3B": "Pushable object (L4872)",
+        "0x3C": "Candle/special pushable (L4872)"
+      }
+    }
+  },
+  "objects": [
+    {
+      "code": 3,
+      "hex": "0x03",
+      "category": "enemy",
+      "kind": "devil_flower",
+      "description": "Devil Flower - grows from bud, stationary hazard",
+      "entity_type": 51,
+      "entity_type_hex": "0x33",
+      "initial_direction": "right",
+      "persistence_flag": false,
+      "count": 1,
+      "rooms": [
+        54
+      ]
+    },
+    {
+      "code": 5,
+      "hex": "0x05",
+      "category": "enemy",
+      "kind": "witch",
+      "description": "Witch - summons other enemies",
+      "entity_type": 53,
+      "entity_type_hex": "0x35",
+      "initial_direction": "right",
+      "persistence_flag": false,
+      "count": 1,
+      "rooms": [
+        54
+      ]
+    },
+    {
+      "code": 12,
+      "hex": "0x0C",
+      "category": "interactive",
+      "kind": "candle",
+      "description": "Candle/special pushable - hazardous top (L4872)",
+      "entity_type": 60,
+      "entity_type_hex": "0x3C",
+      "initial_direction": "right",
+      "persistence_flag": false,
+      "count": 1,
+      "rooms": [
+        54
+      ]
+    },
+    {
+      "code": 40,
+      "hex": "0x28",
+      "category": "interactive",
+      "kind": "elevator",
+      "description": "Elevator - vertical movement (L48AD)",
+      "entity_type": 56,
+      "entity_type_hex": "0x38",
+      "initial_direction": "left",
+      "persistence_flag": false,
+      "count": 1,
+      "rooms": [
+        54
+      ]
+    },
+    {
+      "code": 108,
+      "hex": "0x6C",
+      "category": "item",
+      "kind": "key_yellow",
+      "description": "Yellow key (256 pts)",
+      "entity_type": 44,
+      "entity_type_hex": "0x2C",
+      "initial_direction": "left",
+      "persistence_flag": false,
+      "count": 2,
+      "rooms": [
+        54
+      ]
+    },
+    {
+      "code": 128,
+      "hex": "0x80",
+      "category": "enemy",
+      "kind": "knight",
+      "description": "Knight - patrols and fires arrows",
+      "entity_type": 48,
+      "entity_type_hex": "0x30",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 32,
+      "rooms": [
+        4,
+        7,
+        8,
+        9,
+        21,
+        23,
+        27,
+        31,
+        33,
+        37,
+        42,
+        43,
+        48
+      ]
+    },
+    {
+      "code": 129,
+      "hex": "0x81",
+      "category": "enemy",
+      "kind": "fighter",
+      "description": "Fighter - melee, jumps when player jumps",
+      "entity_type": 49,
+      "entity_type_hex": "0x31",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 32,
+      "rooms": [
+        1,
+        4,
+        8,
+        21,
+        26,
+        31,
+        35,
+        45,
+        47,
+        49,
+        51
+      ]
+    },
+    {
+      "code": 130,
+      "hex": "0x82",
+      "category": "enemy",
+      "kind": "bishop",
+      "description": "Bishop - immune to dagger, patrols area",
+      "entity_type": 50,
+      "entity_type_hex": "0x32",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 17,
+      "rooms": [
+        6,
+        10,
+        15,
+        21,
+        22,
+        46,
+        53,
+        55,
+        57
+      ]
+    },
+    {
+      "code": 131,
+      "hex": "0x83",
+      "category": "enemy",
+      "kind": "devil_flower",
+      "description": "Devil Flower - grows from bud, stationary hazard",
+      "entity_type": 51,
+      "entity_type_hex": "0x33",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 27,
+      "rooms": [
+        7,
+        8,
+        18,
+        27,
+        30,
+        34,
+        40,
+        41,
+        42
+      ]
+    },
+    {
+      "code": 132,
+      "hex": "0x84",
+      "category": "enemy",
+      "kind": "flame",
+      "description": "Flame - roams room seeking player, immune to dagger",
+      "entity_type": 52,
+      "entity_type_hex": "0x34",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 6,
+      "rooms": [
+        1,
+        7,
+        23,
+        38,
+        41,
+        43
+      ]
+    },
+    {
+      "code": 133,
+      "hex": "0x85",
+      "category": "enemy",
+      "kind": "witch",
+      "description": "Witch - summons other enemies",
+      "entity_type": 53,
+      "entity_type_hex": "0x35",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 7,
+      "rooms": [
+        8,
+        21,
+        27,
+        42,
+        49
+      ]
+    },
+    {
+      "code": 134,
+      "hex": "0x86",
+      "category": "interactive",
+      "kind": "door",
+      "description": "Door - opens with matching colored key",
+      "entity_type": 54,
+      "entity_type_hex": "0x36",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 16,
+      "rooms": [
+        6,
+        7,
+        16,
+        30,
+        32
+      ]
+    },
+    {
+      "code": 136,
+      "hex": "0x88",
+      "category": "interactive",
+      "kind": "elevator",
+      "description": "Elevator - vertical movement (L48AD)",
+      "entity_type": 56,
+      "entity_type_hex": "0x38",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 12,
+      "rooms": [
+        4,
+        9,
+        15,
+        24,
+        30,
+        34,
+        35,
+        44
+      ]
+    },
+    {
+      "code": 137,
+      "hex": "0x89",
+      "category": "interactive",
+      "kind": "barrier",
+      "description": "Barrier/conveyor - periodic activation (L4882)",
+      "entity_type": 57,
+      "entity_type_hex": "0x39",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 12,
+      "rooms": [
+        16,
+        29,
+        39,
+        54,
+        55,
+        59
+      ]
+    },
+    {
+      "code": 138,
+      "hex": "0x8A",
+      "category": "interactive",
+      "kind": "moving_hazard",
+      "description": "Moving hazard/obstacle (L487A)",
+      "entity_type": 58,
+      "entity_type_hex": "0x3A",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 4,
+      "rooms": [
+        41,
+        43,
+        48
+      ]
+    },
+    {
+      "code": 139,
+      "hex": "0x8B",
+      "category": "interactive",
+      "kind": "pushable_object",
+      "description": "Pushable object - block/brick/barrel (L4872)",
+      "entity_type": 59,
+      "entity_type_hex": "0x3B",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 4,
+      "rooms": [
+        9,
+        12,
+        40
+      ]
+    },
+    {
+      "code": 167,
+      "hex": "0xA7",
+      "category": "interactive",
+      "kind": "floating_platform",
+      "description": "Floating platform - horizontal movement (L4901)",
+      "entity_type": 55,
+      "entity_type_hex": "0x37",
+      "initial_direction": "left",
+      "persistence_flag": true,
+      "count": 7,
+      "rooms": [
+        3,
+        10,
+        18,
+        20,
+        46
+      ]
+    },
+    {
+      "code": 168,
+      "hex": "0xA8",
+      "category": "interactive",
+      "kind": "elevator",
+      "description": "Elevator - vertical movement (L48AD)",
+      "entity_type": 56,
+      "entity_type_hex": "0x38",
+      "initial_direction": "left",
+      "persistence_flag": true,
+      "count": 17,
+      "rooms": [
+        9,
+        17,
+        18,
+        24,
+        30,
+        35,
+        44,
+        53
+      ]
+    },
+    {
+      "code": 169,
+      "hex": "0xA9",
+      "category": "interactive",
+      "kind": "barrier",
+      "description": "Barrier/conveyor - periodic activation (L4882)",
+      "entity_type": 57,
+      "entity_type_hex": "0x39",
+      "initial_direction": "left",
+      "persistence_flag": true,
+      "count": 2,
+      "rooms": [
+        29,
+        55
+      ]
+    },
+    {
+      "code": 170,
+      "hex": "0xAA",
+      "category": "interactive",
+      "kind": "moving_hazard",
+      "description": "Moving hazard/obstacle (L487A)",
+      "entity_type": 58,
+      "entity_type_hex": "0x3A",
+      "initial_direction": "left",
+      "persistence_flag": true,
+      "count": 6,
+      "rooms": [
+        15,
+        43,
+        45,
+        47
+      ]
+    },
+    {
+      "code": 171,
+      "hex": "0xAB",
+      "category": "interactive",
+      "kind": "pushable_object",
+      "description": "Pushable object - block/brick/barrel (L4872)",
+      "entity_type": 59,
+      "entity_type_hex": "0x3B",
+      "initial_direction": "left",
+      "persistence_flag": true,
+      "count": 10,
+      "rooms": [
+        1,
+        9,
+        12,
+        23,
+        40,
+        49,
+        51
+      ]
+    },
+    {
+      "code": 172,
+      "hex": "0xAC",
+      "category": "interactive",
+      "kind": "candle",
+      "description": "Candle/special pushable - hazardous top (L4872)",
+      "entity_type": 60,
+      "entity_type_hex": "0x3C",
+      "initial_direction": "left",
+      "persistence_flag": true,
+      "count": 1,
+      "rooms": [
+        54
+      ]
+    },
+    {
+      "code": 192,
+      "hex": "0xC0",
+      "category": "item",
+      "kind": "crown",
+      "description": "Crown - special goal item (sets game flag)",
+      "entity_type": 32,
+      "entity_type_hex": "0x20",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 1,
+      "rooms": [
+        9
+      ]
+    },
+    {
+      "code": 193,
+      "hex": "0xC1",
+      "category": "item",
+      "kind": "princess",
+      "description": "Princess - rescue target (triggers cutscene)",
+      "entity_type": 33,
+      "entity_type_hex": "0x21",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 1,
+      "rooms": [
+        50
+      ]
+    },
+    {
+      "code": 195,
+      "hex": "0xC3",
+      "category": "item",
+      "kind": "potion",
+      "description": "Potion - extra life (1000 pts)",
+      "entity_type": 35,
+      "entity_type_hex": "0x23",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 2,
+      "rooms": [
+        39,
+        45
+      ]
+    },
+    {
+      "code": 196,
+      "hex": "0xC4",
+      "category": "item",
+      "kind": "oxygen_tank",
+      "description": "Oxygen tank - allows underwater breathing",
+      "entity_type": 36,
+      "entity_type_hex": "0x24",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 5,
+      "rooms": [
+        10,
+        12,
+        37,
+        50,
+        59
+      ]
+    },
+    {
+      "code": 197,
+      "hex": "0xC5",
+      "category": "item",
+      "kind": "castle_map",
+      "description": "Castle Map - shows room layout (1000 pts)",
+      "entity_type": 37,
+      "entity_type_hex": "0x25",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 1,
+      "rooms": [
+        19
+      ]
+    },
+    {
+      "code": 198,
+      "hex": "0xC6",
+      "category": "item",
+      "kind": "key_door_opener",
+      "description": "Key/door counter increment",
+      "entity_type": 38,
+      "entity_type_hex": "0x26",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 32,
+      "rooms": [
+        1,
+        2,
+        6,
+        11,
+        15,
+        27,
+        31,
+        32,
+        33,
+        38,
+        39,
+        43,
+        44,
+        46,
+        51,
+        52,
+        57,
+        59
+      ]
+    },
+    {
+      "code": 199,
+      "hex": "0xC7",
+      "category": "item",
+      "kind": "treasure_high",
+      "description": "Treasure - high value (2048 pts, Cross)",
+      "entity_type": 39,
+      "entity_type_hex": "0x27",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 55,
+      "rooms": [
+        1,
+        2,
+        4,
+        5,
+        10,
+        15,
+        16,
+        18,
+        22,
+        23,
+        27,
+        28,
+        29,
+        32,
+        33,
+        34,
+        39,
+        44,
+        46,
+        48,
+        52
+      ]
+    },
+    {
+      "code": 200,
+      "hex": "0xC8",
+      "category": "item",
+      "kind": "treasure_mid",
+      "description": "Treasure - medium value (1024 pts, Ring)",
+      "entity_type": 40,
+      "entity_type_hex": "0x28",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 36,
+      "rooms": [
+        1,
+        4,
+        10,
+        14,
+        18,
+        27,
+        28,
+        34,
+        36,
+        39,
+        40,
+        44,
+        45,
+        46,
+        49,
+        51
+      ]
+    },
+    {
+      "code": 201,
+      "hex": "0xC9",
+      "category": "item",
+      "kind": "treasure_low",
+      "description": "Treasure - low value (512 pts, Money bag)",
+      "entity_type": 41,
+      "entity_type_hex": "0x29",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 28,
+      "rooms": [
+        1,
+        14,
+        15,
+        18,
+        27,
+        28,
+        34,
+        39,
+        40,
+        46,
+        47,
+        48,
+        49,
+        57
+      ]
+    },
+    {
+      "code": 202,
+      "hex": "0xCA",
+      "category": "item",
+      "kind": "key_red",
+      "description": "Red key (1024 pts)",
+      "entity_type": 42,
+      "entity_type_hex": "0x2A",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 2,
+      "rooms": [
+        3,
+        5
+      ]
+    },
+    {
+      "code": 204,
+      "hex": "0xCC",
+      "category": "item",
+      "kind": "key_yellow",
+      "description": "Yellow key (256 pts)",
+      "entity_type": 44,
+      "entity_type_hex": "0x2C",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 11,
+      "rooms": [
+        0,
+        3,
+        15,
+        19,
+        20,
+        26,
+        43,
+        59
+      ]
+    },
+    {
+      "code": 205,
+      "hex": "0xCD",
+      "category": "item",
+      "kind": "key_green",
+      "description": "Green key (80 pts)",
+      "entity_type": 45,
+      "entity_type_hex": "0x2D",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 12,
+      "rooms": [
+        0,
+        2,
+        13,
+        17,
+        18,
+        22,
+        26,
+        28
+      ]
+    },
+    {
+      "code": 206,
+      "hex": "0xCE",
+      "category": "item",
+      "kind": "key_blue",
+      "description": "Blue key (32 pts)",
+      "entity_type": 46,
+      "entity_type_hex": "0x2E",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 28,
+      "rooms": [
+        11,
+        15,
+        17,
+        19,
+        28,
+        33,
+        35,
+        36,
+        37,
+        43,
+        51,
+        52,
+        55,
+        56
+      ]
+    },
+    {
+      "code": 207,
+      "hex": "0xCF",
+      "category": "item",
+      "kind": "key_purple",
+      "description": "Purple key (16 pts)",
+      "entity_type": 47,
+      "entity_type_hex": "0x2F",
+      "initial_direction": "right",
+      "persistence_flag": true,
+      "count": 22,
+      "rooms": [
+        0,
+        11,
+        20,
+        24,
+        28,
+        36,
+        38,
+        43,
+        48,
+        58
+      ]
+    }
+  ],
+  "room_summary": [
+    {
+      "room_id": 0,
+      "total_objects": 4,
+      "items": 4,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 205,
+          "hex": "0xCD",
+          "kind": "key_green",
+          "x": 2,
+          "y": 4
+        },
+        {
+          "code": 204,
+          "hex": "0xCC",
+          "kind": "key_yellow",
+          "x": 2,
+          "y": 6
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 22,
+          "y": 17
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 24,
+          "y": 17
+        }
+      ]
+    },
+    {
+      "room_id": 1,
+      "total_objects": 12,
+      "items": 4,
+      "enemies": 5,
+      "interactive": 3,
+      "object_codes": [
+        {
+          "code": 171,
+          "hex": "0xAB",
+          "kind": "pushable_object",
+          "x": 6,
+          "y": 8
+        },
+        {
+          "code": 171,
+          "hex": "0xAB",
+          "kind": "pushable_object",
+          "x": 6,
+          "y": 11
+        },
+        {
+          "code": 171,
+          "hex": "0xAB",
+          "kind": "pushable_object",
+          "x": 6,
+          "y": 14
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 6,
+          "y": 17
+        },
+        {
+          "code": 132,
+          "hex": "0x84",
+          "kind": "flame",
+          "x": 12,
+          "y": 5
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 18,
+          "y": 8
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 18,
+          "y": 11
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 18,
+          "y": 14
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 26,
+          "y": 8
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 26,
+          "y": 11
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 26,
+          "y": 14
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 26,
+          "y": 17
+        }
+      ]
+    },
+    {
+      "room_id": 2,
+      "total_objects": 4,
+      "items": 4,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 205,
+          "hex": "0xCD",
+          "kind": "key_green",
+          "x": 2,
+          "y": 8
+        },
+        {
+          "code": 205,
+          "hex": "0xCD",
+          "kind": "key_green",
+          "x": 2,
+          "y": 17
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 26,
+          "y": 8
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 26,
+          "y": 17
+        }
+      ]
+    },
+    {
+      "room_id": 3,
+      "total_objects": 4,
+      "items": 3,
+      "enemies": 0,
+      "interactive": 1,
+      "object_codes": [
+        {
+          "code": 167,
+          "hex": "0xA7",
+          "kind": "floating_platform",
+          "x": 6,
+          "y": 17
+        },
+        {
+          "code": 204,
+          "hex": "0xCC",
+          "kind": "key_yellow",
+          "x": 18,
+          "y": 6
+        },
+        {
+          "code": 202,
+          "hex": "0xCA",
+          "kind": "key_red",
+          "x": 18,
+          "y": 13
+        },
+        {
+          "code": 204,
+          "hex": "0xCC",
+          "kind": "key_yellow",
+          "x": 20,
+          "y": 6
+        }
+      ]
+    },
+    {
+      "room_id": 4,
+      "total_objects": 20,
+      "items": 12,
+      "enemies": 4,
+      "interactive": 4,
+      "object_codes": [
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 2,
+          "y": 16
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 4,
+          "y": 16
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 6,
+          "y": 16
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 8,
+          "y": 16
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 10,
+          "y": 16
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 12,
+          "y": 16
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 16,
+          "y": 4
+        },
+        {
+          "code": 136,
+          "hex": "0x88",
+          "kind": "elevator",
+          "x": 16,
+          "y": 6
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 16,
+          "y": 8
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 18,
+          "y": 4
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 20,
+          "y": 4
+        },
+        {
+          "code": 136,
+          "hex": "0x88",
+          "kind": "elevator",
+          "x": 20,
+          "y": 6
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 20,
+          "y": 8
+        },
+        {
+          "code": 136,
+          "hex": "0x88",
+          "kind": "elevator",
+          "x": 20,
+          "y": 12
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 20,
+          "y": 14
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 22,
+          "y": 4
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 24,
+          "y": 4
+        },
+        {
+          "code": 136,
+          "hex": "0x88",
+          "kind": "elevator",
+          "x": 24,
+          "y": 6
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 24,
+          "y": 8
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 26,
+          "y": 4
+        }
+      ]
+    },
+    {
+      "room_id": 5,
+      "total_objects": 3,
+      "items": 3,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 2,
+          "y": 8
+        },
+        {
+          "code": 202,
+          "hex": "0xCA",
+          "kind": "key_red",
+          "x": 4,
+          "y": 8
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 6,
+          "y": 8
+        }
+      ]
+    },
+    {
+      "room_id": 6,
+      "total_objects": 4,
+      "items": 2,
+      "enemies": 1,
+      "interactive": 1,
+      "object_codes": [
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 2,
+          "y": 12
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 12,
+          "y": 14
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 12,
+          "y": 17
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 20,
+          "y": 14
+        }
+      ]
+    },
+    {
+      "room_id": 7,
+      "total_objects": 6,
+      "items": 0,
+      "enemies": 4,
+      "interactive": 2,
+      "object_codes": [
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 10,
+          "y": 17
+        },
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 14,
+          "y": 8
+        },
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 14,
+          "y": 13
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 16,
+          "y": 17
+        },
+        {
+          "code": 132,
+          "hex": "0x84",
+          "kind": "flame",
+          "x": 18,
+          "y": 5
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 22,
+          "y": 12
+        }
+      ]
+    },
+    {
+      "room_id": 8,
+      "total_objects": 11,
+      "items": 0,
+      "enemies": 11,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 133,
+          "hex": "0x85",
+          "kind": "witch",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 6,
+          "y": 7
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 6,
+          "y": 12
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 8,
+          "y": 3
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 10,
+          "y": 12
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 12,
+          "y": 4
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 14,
+          "y": 12
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 14,
+          "y": 17
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 16,
+          "y": 1
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 16,
+          "y": 8
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 20,
+          "y": 4
+        }
+      ]
+    },
+    {
+      "room_id": 9,
+      "total_objects": 6,
+      "items": 1,
+      "enemies": 1,
+      "interactive": 4,
+      "object_codes": [
+        {
+          "code": 171,
+          "hex": "0xAB",
+          "kind": "pushable_object",
+          "x": 8,
+          "y": 4
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 12,
+          "y": 12
+        },
+        {
+          "code": 139,
+          "hex": "0x8B",
+          "kind": "pushable_object",
+          "x": 14,
+          "y": 4
+        },
+        {
+          "code": 192,
+          "hex": "0xC0",
+          "kind": "crown",
+          "x": 14,
+          "y": 9
+        },
+        {
+          "code": 136,
+          "hex": "0x88",
+          "kind": "elevator",
+          "x": 16,
+          "y": 12
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 18,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "room_id": 10,
+      "total_objects": 6,
+      "items": 4,
+      "enemies": 1,
+      "interactive": 1,
+      "object_codes": [
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 14,
+          "y": 10
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 14,
+          "y": 12
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 16,
+          "y": 2
+        },
+        {
+          "code": 167,
+          "hex": "0xA7",
+          "kind": "floating_platform",
+          "x": 18,
+          "y": 8
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 24,
+          "y": 2
+        },
+        {
+          "code": 196,
+          "hex": "0xC4",
+          "kind": "oxygen_tank",
+          "x": 26,
+          "y": 5
+        }
+      ]
+    },
+    {
+      "room_id": 11,
+      "total_objects": 6,
+      "items": 6,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 2,
+          "y": 10
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 8,
+          "y": 10
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 12,
+          "y": 10
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 16,
+          "y": 10
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 20,
+          "y": 10
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 26,
+          "y": 10
+        }
+      ]
+    },
+    {
+      "room_id": 12,
+      "total_objects": 4,
+      "items": 1,
+      "enemies": 0,
+      "interactive": 3,
+      "object_codes": [
+        {
+          "code": 139,
+          "hex": "0x8B",
+          "kind": "pushable_object",
+          "x": 2,
+          "y": 6
+        },
+        {
+          "code": 196,
+          "hex": "0xC4",
+          "kind": "oxygen_tank",
+          "x": 2,
+          "y": 10
+        },
+        {
+          "code": 171,
+          "hex": "0xAB",
+          "kind": "pushable_object",
+          "x": 14,
+          "y": 6
+        },
+        {
+          "code": 139,
+          "hex": "0x8B",
+          "kind": "pushable_object",
+          "x": 26,
+          "y": 6
+        }
+      ]
+    },
+    {
+      "room_id": 13,
+      "total_objects": 1,
+      "items": 1,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 205,
+          "hex": "0xCD",
+          "kind": "key_green",
+          "x": 2,
+          "y": 8
+        }
+      ]
+    },
+    {
+      "room_id": 14,
+      "total_objects": 5,
+      "items": 5,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 8,
+          "y": 0
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 10,
+          "y": 0
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 12,
+          "y": 0
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 14,
+          "y": 0
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 16,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "room_id": 15,
+      "total_objects": 10,
+      "items": 7,
+      "enemies": 1,
+      "interactive": 2,
+      "object_codes": [
+        {
+          "code": 204,
+          "hex": "0xCC",
+          "kind": "key_yellow",
+          "x": 2,
+          "y": 6
+        },
+        {
+          "code": 204,
+          "hex": "0xCC",
+          "kind": "key_yellow",
+          "x": 2,
+          "y": 8
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 2,
+          "y": 14
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 4,
+          "y": 10
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 4,
+          "y": 14
+        },
+        {
+          "code": 136,
+          "hex": "0x88",
+          "kind": "elevator",
+          "x": 10,
+          "y": 3
+        },
+        {
+          "code": 170,
+          "hex": "0xAA",
+          "kind": "moving_hazard",
+          "x": 12,
+          "y": 17
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 16,
+          "y": 1
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 16,
+          "y": 12
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 18,
+          "y": 12
+        }
+      ]
+    },
+    {
+      "room_id": 16,
+      "total_objects": 10,
+      "items": 5,
+      "enemies": 0,
+      "interactive": 5,
+      "object_codes": [
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 6,
+          "y": 10
+        },
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 10,
+          "y": 7
+        },
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 14,
+          "y": 9
+        },
+        {
+          "code": 137,
+          "hex": "0x89",
+          "kind": "barrier",
+          "x": 14,
+          "y": 17
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 18,
+          "y": 6
+        },
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 18,
+          "y": 11
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 20,
+          "y": 6
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 22,
+          "y": 6
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 24,
+          "y": 6
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 26,
+          "y": 6
+        }
+      ]
+    },
+    {
+      "room_id": 17,
+      "total_objects": 4,
+      "items": 3,
+      "enemies": 0,
+      "interactive": 1,
+      "object_codes": [
+        {
+          "code": 205,
+          "hex": "0xCD",
+          "kind": "key_green",
+          "x": 2,
+          "y": 5
+        },
+        {
+          "code": 205,
+          "hex": "0xCD",
+          "kind": "key_green",
+          "x": 8,
+          "y": 5
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 12,
+          "y": 2
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 20,
+          "y": 11
+        }
+      ]
+    },
+    {
+      "room_id": 18,
+      "total_objects": 9,
+      "items": 5,
+      "enemies": 1,
+      "interactive": 3,
+      "object_codes": [
+        {
+          "code": 205,
+          "hex": "0xCD",
+          "kind": "key_green",
+          "x": 2,
+          "y": 17
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 6,
+          "y": 2
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 6,
+          "y": 4
+        },
+        {
+          "code": 167,
+          "hex": "0xA7",
+          "kind": "floating_platform",
+          "x": 6,
+          "y": 9
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 10,
+          "y": 11
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 14,
+          "y": 0
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 14,
+          "y": 16
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 18,
+          "y": 11
+        },
+        {
+          "code": 167,
+          "hex": "0xA7",
+          "kind": "floating_platform",
+          "x": 22,
+          "y": 9
+        }
+      ]
+    },
+    {
+      "room_id": 19,
+      "total_objects": 3,
+      "items": 3,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 2,
+          "y": 5
+        },
+        {
+          "code": 204,
+          "hex": "0xCC",
+          "kind": "key_yellow",
+          "x": 20,
+          "y": 5
+        },
+        {
+          "code": 197,
+          "hex": "0xC5",
+          "kind": "castle_map",
+          "x": 26,
+          "y": 4
+        }
+      ]
+    },
+    {
+      "room_id": 20,
+      "total_objects": 3,
+      "items": 2,
+      "enemies": 0,
+      "interactive": 1,
+      "object_codes": [
+        {
+          "code": 204,
+          "hex": "0xCC",
+          "kind": "key_yellow",
+          "x": 14,
+          "y": 8
+        },
+        {
+          "code": 167,
+          "hex": "0xA7",
+          "kind": "floating_platform",
+          "x": 16,
+          "y": 10
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 20,
+          "y": 8
+        }
+      ]
+    },
+    {
+      "room_id": 21,
+      "total_objects": 7,
+      "items": 0,
+      "enemies": 7,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 4,
+          "y": 15
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 4,
+          "y": 17
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 16,
+          "y": 1
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 16,
+          "y": 16
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 18,
+          "y": 1
+        },
+        {
+          "code": 133,
+          "hex": "0x85",
+          "kind": "witch",
+          "x": 22,
+          "y": 9
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 22,
+          "y": 12
+        }
+      ]
+    },
+    {
+      "room_id": 22,
+      "total_objects": 8,
+      "items": 6,
+      "enemies": 2,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 205,
+          "hex": "0xCD",
+          "kind": "key_green",
+          "x": 2,
+          "y": 15
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 4,
+          "y": 17
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 8,
+          "y": 5
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 8,
+          "y": 8
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 20,
+          "y": 5
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 20,
+          "y": 8
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 24,
+          "y": 17
+        },
+        {
+          "code": 205,
+          "hex": "0xCD",
+          "kind": "key_green",
+          "x": 26,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "room_id": 23,
+      "total_objects": 6,
+      "items": 2,
+      "enemies": 3,
+      "interactive": 1,
+      "object_codes": [
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 8,
+          "y": 2
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 10,
+          "y": 2
+        },
+        {
+          "code": 171,
+          "hex": "0xAB",
+          "kind": "pushable_object",
+          "x": 14,
+          "y": 9
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 14,
+          "y": 12
+        },
+        {
+          "code": 132,
+          "hex": "0x84",
+          "kind": "flame",
+          "x": 16,
+          "y": 6
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 18,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "room_id": 24,
+      "total_objects": 8,
+      "items": 3,
+      "enemies": 0,
+      "interactive": 5,
+      "object_codes": [
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 2,
+          "y": 0
+        },
+        {
+          "code": 136,
+          "hex": "0x88",
+          "kind": "elevator",
+          "x": 8,
+          "y": 6
+        },
+        {
+          "code": 136,
+          "hex": "0x88",
+          "kind": "elevator",
+          "x": 10,
+          "y": 1
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 14,
+          "y": 0
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 14,
+          "y": 5
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 18,
+          "y": 1
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 20,
+          "y": 6
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 26,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "room_id": 25,
+      "total_objects": 0,
+      "items": 0,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": []
+    },
+    {
+      "room_id": 26,
+      "total_objects": 8,
+      "items": 2,
+      "enemies": 6,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 4,
+          "y": 7
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 4,
+          "y": 12
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 16,
+          "y": 6
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 16,
+          "y": 17
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 20,
+          "y": 17
+        },
+        {
+          "code": 205,
+          "hex": "0xCD",
+          "kind": "key_green",
+          "x": 22,
+          "y": 3
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 24,
+          "y": 17
+        },
+        {
+          "code": 204,
+          "hex": "0xCC",
+          "kind": "key_yellow",
+          "x": 26,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "room_id": 27,
+      "total_objects": 11,
+      "items": 8,
+      "enemies": 3,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 6,
+          "y": 7
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 6,
+          "y": 11
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 6,
+          "y": 17
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 8,
+          "y": 11
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 8,
+          "y": 14
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 8,
+          "y": 17
+        },
+        {
+          "code": 133,
+          "hex": "0x85",
+          "kind": "witch",
+          "x": 10,
+          "y": 7
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 10,
+          "y": 14
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 14,
+          "y": 1
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 16,
+          "y": 1
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 22,
+          "y": 17
+        }
+      ]
+    },
+    {
+      "room_id": 28,
+      "total_objects": 10,
+      "items": 10,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 205,
+          "hex": "0xCD",
+          "kind": "key_green",
+          "x": 2,
+          "y": 6
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 2,
+          "y": 10
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 6,
+          "y": 6
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 6,
+          "y": 10
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 14,
+          "y": 6
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 14,
+          "y": 10
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 22,
+          "y": 6
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 22,
+          "y": 10
+        },
+        {
+          "code": 205,
+          "hex": "0xCD",
+          "kind": "key_green",
+          "x": 26,
+          "y": 6
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 26,
+          "y": 10
+        }
+      ]
+    },
+    {
+      "room_id": 29,
+      "total_objects": 8,
+      "items": 3,
+      "enemies": 0,
+      "interactive": 5,
+      "object_codes": [
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 2,
+          "y": 1
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 2,
+          "y": 5
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 2,
+          "y": 9
+        },
+        {
+          "code": 169,
+          "hex": "0xA9",
+          "kind": "barrier",
+          "x": 12,
+          "y": 14
+        },
+        {
+          "code": 137,
+          "hex": "0x89",
+          "kind": "barrier",
+          "x": 18,
+          "y": 2
+        },
+        {
+          "code": 137,
+          "hex": "0x89",
+          "kind": "barrier",
+          "x": 18,
+          "y": 6
+        },
+        {
+          "code": 137,
+          "hex": "0x89",
+          "kind": "barrier",
+          "x": 18,
+          "y": 10
+        },
+        {
+          "code": 137,
+          "hex": "0x89",
+          "kind": "barrier",
+          "x": 18,
+          "y": 14
+        }
+      ]
+    },
+    {
+      "room_id": 30,
+      "total_objects": 5,
+      "items": 0,
+      "enemies": 1,
+      "interactive": 4,
+      "object_codes": [
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 8,
+          "y": 4
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 12,
+          "y": 7
+        },
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 14,
+          "y": 16
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 16,
+          "y": 2
+        },
+        {
+          "code": 136,
+          "hex": "0x88",
+          "kind": "elevator",
+          "x": 22,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "room_id": 31,
+      "total_objects": 13,
+      "items": 2,
+      "enemies": 11,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 10,
+          "y": 1
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 10,
+          "y": 7
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 10,
+          "y": 14
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 16,
+          "y": 1
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 16,
+          "y": 7
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 18,
+          "y": 17
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 22,
+          "y": 9
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 22,
+          "y": 11
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 22,
+          "y": 13
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 22,
+          "y": 15
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 22,
+          "y": 17
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 24,
+          "y": 6
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 26,
+          "y": 6
+        }
+      ]
+    },
+    {
+      "room_id": 32,
+      "total_objects": 13,
+      "items": 6,
+      "enemies": 0,
+      "interactive": 7,
+      "object_codes": [
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 2,
+          "y": 4
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 4,
+          "y": 4
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 6,
+          "y": 4
+        },
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 6,
+          "y": 10
+        },
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 10,
+          "y": 1
+        },
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 10,
+          "y": 14
+        },
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 14,
+          "y": 8
+        },
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 18,
+          "y": 1
+        },
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 18,
+          "y": 14
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 22,
+          "y": 4
+        },
+        {
+          "code": 134,
+          "hex": "0x86",
+          "kind": "door",
+          "x": 22,
+          "y": 10
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 24,
+          "y": 4
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 26,
+          "y": 4
+        }
+      ]
+    },
+    {
+      "room_id": 33,
+      "total_objects": 17,
+      "items": 10,
+      "enemies": 7,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 4,
+          "y": 14
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 6,
+          "y": 4
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 6,
+          "y": 7
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 6,
+          "y": 14
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 8,
+          "y": 1
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 14,
+          "y": 4
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 20,
+          "y": 15
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 20,
+          "y": 17
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 22,
+          "y": 1
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 22,
+          "y": 15
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 22,
+          "y": 17
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 24,
+          "y": 1
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 24,
+          "y": 7
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 24,
+          "y": 15
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 24,
+          "y": 17
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 26,
+          "y": 15
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 26,
+          "y": 17
+        }
+      ]
+    },
+    {
+      "room_id": 34,
+      "total_objects": 8,
+      "items": 6,
+      "enemies": 1,
+      "interactive": 1,
+      "object_codes": [
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 2,
+          "y": 13
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 2,
+          "y": 15
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 4,
+          "y": 13
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 4,
+          "y": 15
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 6,
+          "y": 14
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 8,
+          "y": 14
+        },
+        {
+          "code": 136,
+          "hex": "0x88",
+          "kind": "elevator",
+          "x": 12,
+          "y": 2
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 12,
+          "y": 11
+        }
+      ]
+    },
+    {
+      "room_id": 35,
+      "total_objects": 6,
+      "items": 2,
+      "enemies": 2,
+      "interactive": 2,
+      "object_codes": [
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 2,
+          "y": 5
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "code": 136,
+          "hex": "0x88",
+          "kind": "elevator",
+          "x": 4,
+          "y": 12
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 24,
+          "y": 12
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 24,
+          "y": 17
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 26,
+          "y": 5
+        }
+      ]
+    },
+    {
+      "room_id": 36,
+      "total_objects": 5,
+      "items": 5,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 2,
+          "y": 9
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 12,
+          "y": 12
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 14,
+          "y": 15
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 16,
+          "y": 12
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 26,
+          "y": 9
+        }
+      ]
+    },
+    {
+      "room_id": 37,
+      "total_objects": 4,
+      "items": 3,
+      "enemies": 1,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 196,
+          "hex": "0xC4",
+          "kind": "oxygen_tank",
+          "x": 2,
+          "y": 1
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 2,
+          "y": 10
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 4,
+          "y": 4
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 26,
+          "y": 10
+        }
+      ]
+    },
+    {
+      "room_id": 38,
+      "total_objects": 7,
+      "items": 6,
+      "enemies": 1,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 132,
+          "hex": "0x84",
+          "kind": "flame",
+          "x": 6,
+          "y": 2
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 16,
+          "y": 10
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 20,
+          "y": 10
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 22,
+          "y": 10
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 24,
+          "y": 14
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 26,
+          "y": 10
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 26,
+          "y": 14
+        }
+      ]
+    },
+    {
+      "room_id": 39,
+      "total_objects": 14,
+      "items": 11,
+      "enemies": 0,
+      "interactive": 3,
+      "object_codes": [
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 2,
+          "y": 11
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 4,
+          "y": 11
+        },
+        {
+          "code": 195,
+          "hex": "0xC3",
+          "kind": "potion",
+          "x": 8,
+          "y": 8
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 20,
+          "y": 1
+        },
+        {
+          "code": 137,
+          "hex": "0x89",
+          "kind": "barrier",
+          "x": 20,
+          "y": 3
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 20,
+          "y": 6
+        },
+        {
+          "code": 137,
+          "hex": "0x89",
+          "kind": "barrier",
+          "x": 20,
+          "y": 8
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 20,
+          "y": 11
+        },
+        {
+          "code": 137,
+          "hex": "0x89",
+          "kind": "barrier",
+          "x": 20,
+          "y": 13
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 20,
+          "y": 16
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 22,
+          "y": 1
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 22,
+          "y": 6
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 22,
+          "y": 11
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 22,
+          "y": 16
+        }
+      ]
+    },
+    {
+      "room_id": 40,
+      "total_objects": 17,
+      "items": 6,
+      "enemies": 8,
+      "interactive": 3,
+      "object_codes": [
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 8,
+          "y": 3
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 8,
+          "y": 17
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 10,
+          "y": 6
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 10,
+          "y": 8
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 10,
+          "y": 17
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 12,
+          "y": 3
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 12,
+          "y": 17
+        },
+        {
+          "code": 171,
+          "hex": "0xAB",
+          "kind": "pushable_object",
+          "x": 14,
+          "y": 8
+        },
+        {
+          "code": 139,
+          "hex": "0x8B",
+          "kind": "pushable_object",
+          "x": 14,
+          "y": 11
+        },
+        {
+          "code": 171,
+          "hex": "0xAB",
+          "kind": "pushable_object",
+          "x": 14,
+          "y": 14
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 14,
+          "y": 17
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 16,
+          "y": 3
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 16,
+          "y": 17
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 18,
+          "y": 6
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 18,
+          "y": 8
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 18,
+          "y": 17
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 20,
+          "y": 3
+        }
+      ]
+    },
+    {
+      "room_id": 41,
+      "total_objects": 6,
+      "items": 0,
+      "enemies": 5,
+      "interactive": 1,
+      "object_codes": [
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 12,
+          "y": 16
+        },
+        {
+          "code": 138,
+          "hex": "0x8A",
+          "kind": "moving_hazard",
+          "x": 14,
+          "y": 2
+        },
+        {
+          "code": 132,
+          "hex": "0x84",
+          "kind": "flame",
+          "x": 14,
+          "y": 6
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 14,
+          "y": 9
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 16,
+          "y": 16
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 22,
+          "y": 14
+        }
+      ]
+    },
+    {
+      "room_id": 42,
+      "total_objects": 10,
+      "items": 0,
+      "enemies": 10,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 4,
+          "y": 0
+        },
+        {
+          "code": 133,
+          "hex": "0x85",
+          "kind": "witch",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "code": 133,
+          "hex": "0x85",
+          "kind": "witch",
+          "x": 10,
+          "y": 3
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 14,
+          "y": 0
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 18,
+          "y": 4
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 20,
+          "y": 6
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 22,
+          "y": 0
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 22,
+          "y": 8
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 24,
+          "y": 10
+        },
+        {
+          "code": 131,
+          "hex": "0x83",
+          "kind": "devil_flower",
+          "x": 26,
+          "y": 12
+        }
+      ]
+    },
+    {
+      "room_id": 43,
+      "total_objects": 17,
+      "items": 8,
+      "enemies": 5,
+      "interactive": 4,
+      "object_codes": [
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 2,
+          "y": 2
+        },
+        {
+          "code": 170,
+          "hex": "0xAA",
+          "kind": "moving_hazard",
+          "x": 8,
+          "y": 11
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 8,
+          "y": 16
+        },
+        {
+          "code": 138,
+          "hex": "0x8A",
+          "kind": "moving_hazard",
+          "x": 12,
+          "y": 11
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 12,
+          "y": 16
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 14,
+          "y": 5
+        },
+        {
+          "code": 170,
+          "hex": "0xAA",
+          "kind": "moving_hazard",
+          "x": 14,
+          "y": 11
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 16,
+          "y": 5
+        },
+        {
+          "code": 204,
+          "hex": "0xCC",
+          "kind": "key_yellow",
+          "x": 16,
+          "y": 8
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 16,
+          "y": 16
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 18,
+          "y": 5
+        },
+        {
+          "code": 204,
+          "hex": "0xCC",
+          "kind": "key_yellow",
+          "x": 18,
+          "y": 8
+        },
+        {
+          "code": 138,
+          "hex": "0x8A",
+          "kind": "moving_hazard",
+          "x": 18,
+          "y": 11
+        },
+        {
+          "code": 132,
+          "hex": "0x84",
+          "kind": "flame",
+          "x": 20,
+          "y": 2
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 20,
+          "y": 16
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 26,
+          "y": 8
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 26,
+          "y": 13
+        }
+      ]
+    },
+    {
+      "room_id": 44,
+      "total_objects": 5,
+      "items": 3,
+      "enemies": 0,
+      "interactive": 2,
+      "object_codes": [
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 6,
+          "y": 6
+        },
+        {
+          "code": 136,
+          "hex": "0x88",
+          "kind": "elevator",
+          "x": 6,
+          "y": 10
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 26,
+          "y": 1
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 26,
+          "y": 5
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 26,
+          "y": 9
+        }
+      ]
+    },
+    {
+      "room_id": 45,
+      "total_objects": 6,
+      "items": 3,
+      "enemies": 1,
+      "interactive": 2,
+      "object_codes": [
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 2,
+          "y": 6
+        },
+        {
+          "code": 195,
+          "hex": "0xC3",
+          "kind": "potion",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 4,
+          "y": 6
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 4,
+          "y": 14
+        },
+        {
+          "code": 170,
+          "hex": "0xAA",
+          "kind": "moving_hazard",
+          "x": 8,
+          "y": 8
+        },
+        {
+          "code": 170,
+          "hex": "0xAA",
+          "kind": "moving_hazard",
+          "x": 18,
+          "y": 3
+        }
+      ]
+    },
+    {
+      "room_id": 46,
+      "total_objects": 14,
+      "items": 10,
+      "enemies": 2,
+      "interactive": 2,
+      "object_codes": [
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 2,
+          "y": 6
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 2,
+          "y": 13
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 8,
+          "y": 1
+        },
+        {
+          "code": 167,
+          "hex": "0xA7",
+          "kind": "floating_platform",
+          "x": 8,
+          "y": 8
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 10,
+          "y": 1
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 12,
+          "y": 14
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 16,
+          "y": 1
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 16,
+          "y": 3
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 16,
+          "y": 14
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 18,
+          "y": 1
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 20,
+          "y": 1
+        },
+        {
+          "code": 167,
+          "hex": "0xA7",
+          "kind": "floating_platform",
+          "x": 20,
+          "y": 8
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 26,
+          "y": 6
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 26,
+          "y": 13
+        }
+      ]
+    },
+    {
+      "room_id": 47,
+      "total_objects": 6,
+      "items": 3,
+      "enemies": 2,
+      "interactive": 1,
+      "object_codes": [
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 2,
+          "y": 1
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 4,
+          "y": 9
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 6,
+          "y": 1
+        },
+        {
+          "code": 170,
+          "hex": "0xAA",
+          "kind": "moving_hazard",
+          "x": 10,
+          "y": 3
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 18,
+          "y": 3
+        }
+      ]
+    },
+    {
+      "room_id": 48,
+      "total_objects": 9,
+      "items": 7,
+      "enemies": 1,
+      "interactive": 1,
+      "object_codes": [
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 2,
+          "y": 6
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 2,
+          "y": 9
+        },
+        {
+          "code": 128,
+          "hex": "0x80",
+          "kind": "knight",
+          "x": 8,
+          "y": 17
+        },
+        {
+          "code": 138,
+          "hex": "0x8A",
+          "kind": "moving_hazard",
+          "x": 20,
+          "y": 2
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 22,
+          "y": 0
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 24,
+          "y": 0
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 26,
+          "y": 0
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 26,
+          "y": 6
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 26,
+          "y": 9
+        }
+      ]
+    },
+    {
+      "room_id": 49,
+      "total_objects": 8,
+      "items": 3,
+      "enemies": 4,
+      "interactive": 1,
+      "object_codes": [
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 8,
+          "y": 6
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 10,
+          "y": 6
+        },
+        {
+          "code": 171,
+          "hex": "0xAB",
+          "kind": "pushable_object",
+          "x": 10,
+          "y": 14
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 12,
+          "y": 6
+        },
+        {
+          "code": 133,
+          "hex": "0x85",
+          "kind": "witch",
+          "x": 14,
+          "y": 4
+        },
+        {
+          "code": 133,
+          "hex": "0x85",
+          "kind": "witch",
+          "x": 20,
+          "y": 4
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 24,
+          "y": 17
+        }
+      ]
+    },
+    {
+      "room_id": 50,
+      "total_objects": 2,
+      "items": 2,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 193,
+          "hex": "0xC1",
+          "kind": "princess",
+          "x": 12,
+          "y": 6
+        },
+        {
+          "code": 196,
+          "hex": "0xC4",
+          "kind": "oxygen_tank",
+          "x": 24,
+          "y": 10
+        }
+      ]
+    },
+    {
+      "room_id": 51,
+      "total_objects": 9,
+      "items": 6,
+      "enemies": 2,
+      "interactive": 1,
+      "object_codes": [
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 2,
+          "y": 0
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 4,
+          "y": 12
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 10,
+          "y": 0
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 12,
+          "y": 8
+        },
+        {
+          "code": 171,
+          "hex": "0xAB",
+          "kind": "pushable_object",
+          "x": 12,
+          "y": 17
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 14,
+          "y": 8
+        },
+        {
+          "code": 200,
+          "hex": "0xC8",
+          "kind": "treasure_mid",
+          "x": 16,
+          "y": 8
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 18,
+          "y": 0
+        },
+        {
+          "code": 129,
+          "hex": "0x81",
+          "kind": "fighter",
+          "x": 24,
+          "y": 12
+        }
+      ]
+    },
+    {
+      "room_id": 52,
+      "total_objects": 9,
+      "items": 9,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 2,
+          "y": 0
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 2,
+          "y": 17
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 4,
+          "y": 17
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 6,
+          "y": 17
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 14,
+          "y": 13
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 22,
+          "y": 17
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 24,
+          "y": 17
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 26,
+          "y": 0
+        },
+        {
+          "code": 199,
+          "hex": "0xC7",
+          "kind": "treasure_high",
+          "x": 26,
+          "y": 17
+        }
+      ]
+    },
+    {
+      "room_id": 53,
+      "total_objects": 9,
+      "items": 0,
+      "enemies": 1,
+      "interactive": 8,
+      "object_codes": [
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 4,
+          "y": 17
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 6,
+          "y": 6
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 8,
+          "y": 10
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 10,
+          "y": 14
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 12,
+          "y": 2
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 14,
+          "y": 6
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 16,
+          "y": 10
+        },
+        {
+          "code": 168,
+          "hex": "0xA8",
+          "kind": "elevator",
+          "x": 18,
+          "y": 14
+        }
+      ]
+    },
+    {
+      "room_id": 54,
+      "total_objects": 9,
+      "items": 2,
+      "enemies": 2,
+      "interactive": 5,
+      "object_codes": [
+        {
+          "code": 172,
+          "hex": "0xAC",
+          "kind": "candle",
+          "x": 10,
+          "y": 6
+        },
+        {
+          "code": 108,
+          "hex": "0x6C",
+          "kind": "key_yellow",
+          "x": 4,
+          "y": 22
+        },
+        {
+          "code": 108,
+          "hex": "0x6C",
+          "kind": "key_yellow",
+          "x": 10,
+          "y": 23
+        },
+        {
+          "code": 12,
+          "hex": "0x0C",
+          "kind": "candle",
+          "x": 10,
+          "y": 0
+        },
+        {
+          "code": 40,
+          "hex": "0x28",
+          "kind": "elevator",
+          "x": 24,
+          "y": 21
+        },
+        {
+          "code": 137,
+          "hex": "0x89",
+          "kind": "barrier",
+          "x": 18,
+          "y": 17
+        },
+        {
+          "code": 137,
+          "hex": "0x89",
+          "kind": "barrier",
+          "x": 18,
+          "y": 8
+        },
+        {
+          "code": 3,
+          "hex": "0x03",
+          "kind": "devil_flower",
+          "x": 12,
+          "y": 15
+        },
+        {
+          "code": 5,
+          "hex": "0x05",
+          "kind": "witch",
+          "x": 16,
+          "y": 21
+        }
+      ]
+    },
+    {
+      "room_id": 55,
+      "total_objects": 5,
+      "items": 2,
+      "enemies": 1,
+      "interactive": 2,
+      "object_codes": [
+        {
+          "code": 169,
+          "hex": "0xA9",
+          "kind": "barrier",
+          "x": 8,
+          "y": 6
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 20,
+          "y": 6
+        },
+        {
+          "code": 137,
+          "hex": "0x89",
+          "kind": "barrier",
+          "x": 22,
+          "y": 17
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 24,
+          "y": 0
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 26,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "room_id": 56,
+      "total_objects": 4,
+      "items": 4,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 2,
+          "y": 1
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 24,
+          "y": 1
+        },
+        {
+          "code": 206,
+          "hex": "0xCE",
+          "kind": "key_blue",
+          "x": 26,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "room_id": 57,
+      "total_objects": 9,
+      "items": 4,
+      "enemies": 5,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 6,
+          "y": 2
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 18,
+          "y": 1
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 20,
+          "y": 8
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 20,
+          "y": 10
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 20,
+          "y": 12
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 20,
+          "y": 14
+        },
+        {
+          "code": 130,
+          "hex": "0x82",
+          "kind": "bishop",
+          "x": 20,
+          "y": 16
+        },
+        {
+          "code": 201,
+          "hex": "0xC9",
+          "kind": "treasure_low",
+          "x": 26,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "room_id": 58,
+      "total_objects": 3,
+      "items": 3,
+      "enemies": 0,
+      "interactive": 0,
+      "object_codes": [
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 22,
+          "y": 1
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 24,
+          "y": 1
+        },
+        {
+          "code": 207,
+          "hex": "0xCF",
+          "kind": "key_purple",
+          "x": 26,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "room_id": 59,
+      "total_objects": 4,
+      "items": 3,
+      "enemies": 0,
+      "interactive": 1,
+      "object_codes": [
+        {
+          "code": 204,
+          "hex": "0xCC",
+          "kind": "key_yellow",
+          "x": 6,
+          "y": 15
+        },
+        {
+          "code": 137,
+          "hex": "0x89",
+          "kind": "barrier",
+          "x": 10,
+          "y": 4
+        },
+        {
+          "code": 198,
+          "hex": "0xC6",
+          "kind": "key_door_opener",
+          "x": 18,
+          "y": 1
+        },
+        {
+          "code": 196,
+          "hex": "0xC4",
+          "kind": "oxygen_tank",
+          "x": 22,
+          "y": 6
+        }
+      ]
+    }
+  ]
+}
